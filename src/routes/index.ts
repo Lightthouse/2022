@@ -4,7 +4,8 @@ import {Food} from "pages/Food/Food";
 
 interface Route {
     path: string,
-    element: ReactElement
+    component: FC,
+    exact: true
 }
 
 enum PathList {
@@ -13,6 +14,6 @@ enum PathList {
 }
 
 export const routesList: Array<Route> = [
-    // {path: PathList.HOME, element: Home()},
-    // {path: PathList.FOOD, element: Food()},
+    {path: PathList.HOME, exact: true, component: Home},
+    {path: PathList.FOOD, exact: true, component: Food},
 ]

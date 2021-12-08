@@ -1,16 +1,16 @@
 import React from 'react';
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Switch, Route, Redirect} from "react-router-dom";
 import {routesList} from "routes";
 
 
 export const AppRouter = () => {
     return (
-        <Routes>
+        <Switch>
             {
-                routesList.map(r => <Route key={r.path} path={r.path} element={r.element}/> )
+                routesList.map(r => <Route key={r.path} {...r}/> )
             }
-            <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+            <Redirect to={"/"}/>
+        </Switch>
 
     );
 };

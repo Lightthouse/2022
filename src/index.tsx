@@ -10,10 +10,9 @@ import {Home} from "./pages/Home/Home";
 
 ReactDOM.render(
   <Provider store={store}>
-      <Home/>
-      {/*<BrowserRouter>*/}
-      {/*    <AppRouter />*/}
-      {/*</BrowserRouter>*/}
+      <BrowserRouter>
+          <AppRouter />
+      </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );

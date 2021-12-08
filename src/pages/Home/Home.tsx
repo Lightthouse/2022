@@ -1,12 +1,34 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
+import table from "assets/table.jpeg"
+import stephan from "assets/stephan.jpg"
+import {Person, Photo} from "./Home.styled";
+import {newYearTimer} from "../../utils/utils";
+import {useTimer} from "react-timer-hook";
 
 export const Home: FC = () => {
+    const {    seconds,
+        minutes,
+        hours,
+        days,
+        isRunning,
+        start,
+        pause,
+        resume,
+        restart} = useTimer({expiryTimestamp: newYearTimer(), onExpire: () =>console.log("expo")})
+
 
 
     return (
         <div>
             <h1>Составляем новый год!</h1>
-            <img src={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.cheltv.ru%2Fwp-content%2Fuploads%2F2020%2F11%2Fstol5.jpg&f=1&nofb=1"} alt="стол"/>
+            <span>Адрес</span>
+            <span>До нового года: {days}д. {hours}ч. {minutes}м. {seconds}с.</span>
+            <img src={table} alt="стол"/>
+
+            <Person>
+                <Photo src={stephan} alt="stephan"/>
+                <span>Степан</span>
+            </Person>
         </div>
     );
 };
