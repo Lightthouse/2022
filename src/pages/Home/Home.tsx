@@ -1,34 +1,39 @@
 import React, {FC, useEffect, useState} from 'react';
 import table from "assets/table.jpeg"
 import stephan from "assets/stephan.jpg"
-import {Person, Photo} from "./Home.styled";
-import {newYearTimer} from "../../utils/utils";
+import {HomeStyled, Person, PersonContainer, PersonName, PersonPhoto} from "./Home.styled";
+import {newYearDate, CONTACT_PHONE, CONTACT_TELEGRAM, ADDRESS} from "utils/utils";
 import {useTimer} from "react-timer-hook";
+import {useAppSelector} from "../../hooks/useAppSelector";
 
 export const Home: FC = () => {
-    const {    seconds,
-        minutes,
-        hours,
-        days,
-        isRunning,
-        start,
-        pause,
-        resume,
-        restart} = useTimer({expiryTimestamp: newYearTimer(), onExpire: () =>console.log("expo")})
+    const { seconds, minutes, hours, days,} = useTimer({expiryTimestamp: newYearDate(), onExpire: () => console.log("expo")})
 
-
+    const personList = useAppSelector(state => state.filling.person)
 
     return (
-        <div>
-            <h1>Составляем новый год!</h1>
-            <span>Адрес</span>
-            <span>До нового года: {days}д. {hours}ч. {minutes}м. {seconds}с.</span>
-            <img src={table} alt="стол"/>
+        <HomeStyled>
+            <h1>Встречаем новый год!</h1>
+            <div>Адрес: {ADDRESS}</div>
 
-            <Person>
-                <Photo src={stephan} alt="stephan"/>
-                <span>Степан</span>
-            </Person>
-        </div>
+            <div>До нового года: {days}д. {hours}ч. {minutes}м. {seconds}с.</div>
+
+            <PersonContainer>
+                {
+                    personList.map(p =>
+                        <Person>
+                            <PersonPhoto src={p.photo} alt={p.name}/>
+                            <PersonName>{p.name}</PersonName>
+                        </Person>
+                    )
+                }
+            </PersonContainer>
+
+
+            <div>
+                <span>Телефон для связи: {CONTACT_PHONE}</span>
+                <span>Канал телеграмм: {CONTACT_TELEGRAM}</span>
+            </div>
+        </HomeStyled>
     );
 };
