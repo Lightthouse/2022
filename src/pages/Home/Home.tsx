@@ -51,7 +51,24 @@ export const Home: FC = () => {
                             <PersonPhoto src={p.photo} alt={p.name}/>
                             <PersonName>{p.name}</PersonName>
                         </Person>
+                    )
+                }
 
+                {
+                    personList.map(p =>
+                        <Person key={p.id + 1}>
+                            <PersonPhoto src={p.photo} alt={p.name}/>
+                            <PersonName>{p.name}</PersonName>
+                        </Person>
+                    )
+                }
+
+                {
+                    personList.map(p =>
+                        <Person key={p.id + 2}>
+                            <PersonPhoto src={p.photo} alt={p.name}/>
+                            <PersonName>{p.name}</PersonName>
+                        </Person>
                     )
                 }
             </PersonContainer>

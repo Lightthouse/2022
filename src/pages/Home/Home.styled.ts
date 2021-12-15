@@ -8,17 +8,45 @@ export const HomeStyled = styled.div`
   background-size: cover;
   display: flex;
   flex-direction: column;
+  //flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
+
+
 `
 
 export const Title = styled.h1`
   background-color: navajowhite;
-
+  
   border: 25px solid #B88846;
   border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75'%3E%3Cg fill='none' stroke='%23B88846' stroke-width='2'%3E%3Cpath d='M1 1h73v73H1z'/%3E%3Cpath d='M8 8h59v59H8z'/%3E%3Cpath d='M8 8h16v16H8zM51 8h16v16H51zM51 51h16v16H51zM8 51h16v16H8z'/%3E%3C/g%3E%3Cg fill='%23B88846'%3E%3Ccircle cx='16' cy='16' r='2'/%3E%3Ccircle cx='59' cy='16' r='2'/%3E%3Ccircle cx='59' cy='59' r='2'/%3E%3Ccircle cx='16' cy='59' r='2'/%3E%3C/g%3E%3C/svg%3E") 25;
+  
+  width: 14em;
+  text-align: center;
+
+
+
+  @media(max-width: 800px) {
+    font-size: 25px;
+    width: 16em;
+  }
+  
+
+  @media(max-width: 600px) {
+    font-size: 20px;
+    //width: 14em;
+  }
+  
+  @media(max-width: 400px) {
+    font-size: 16px;
+  }
+
+  @media(max-width: 300px) {
+    font-size: 14px;
+  }
+  
 
 `
 
@@ -79,31 +107,46 @@ export const Hat = styled.div`
 `
 
 export const PartyInfo = styled.div`
+  width: 12em;
   background-color: #8e010a;
   display: flex;
   flex-direction: column;
   text-align: center;
-  border: 4px solid black;
-  padding: 5px;
+  border: 0.3em solid black;
+  padding: 1em;
   font-weight: bold;
+  white-space: nowrap;
+
+  @media(max-width: 600px) {
+    font-size: large;
+    width: 12em;
+  }
+  
+  @media(max-width: 350px) {
+    font-size: large;
+    width: 12em;
+  }
 `
 
 export const PersonContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: hidden;
 `
 export const Person = styled.figure`
   display: flex;
   flex-direction: column;
-
+  align-items: center;
+  
   margin: 2em 1em 3em 1em;
 
-  height: 300px;
-  width: 250px;
+  height: 10em;
+  width: 8em;
   
   text-align: center;
-
   
-  animation: swing ease-in-out 4s infinite alternate;
+  animation: swing ease-in-out 2s infinite alternate;
   transform-origin: center -20px;
   float:left;
   box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
@@ -135,6 +178,11 @@ export const Person = styled.figure`
     0% { transform: rotate(10deg); }
     100% { transform: rotate(-10deg); }
   }
+
+  //@media(max-width: 500px) {
+  //  height: 9em;
+  //  width: 7em;
+  //}
 `
 export const PersonPhoto = styled.img`
   border: 5px solid #f8f8f8;
@@ -150,10 +198,22 @@ export const PersonName = styled.figcaption`
 
 export const Timer = styled.div`
   background-color: navajowhite;
-
+  
+  width: 18em;
   border: 25px solid #B88846;
   border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75'%3E%3Cg fill='none' stroke='%23B88846' stroke-width='2'%3E%3Cpath d='M1 1h73v73H1z'/%3E%3Cpath d='M8 8h59v59H8z'/%3E%3Cpath d='M8 8h16v16H8zM51 8h16v16H51zM51 51h16v16H51zM8 51h16v16H8z'/%3E%3C/g%3E%3Cg fill='%23B88846'%3E%3Ccircle cx='16' cy='16' r='2'/%3E%3Ccircle cx='59' cy='16' r='2'/%3E%3Ccircle cx='59' cy='59' r='2'/%3E%3Ccircle cx='16' cy='59' r='2'/%3E%3C/g%3E%3C/svg%3E") 25;
-  
+  white-space: nowrap;
+  text-align: center;
+  margin-bottom: 1em;
+
+  @media(max-width: 600px) {
+    font-size: 18px;
+    width: 16em;
+  }
+
+  @media(max-width: 350px) {
+    font-size: 14px;
+  }
 `
 
 export const Contacts = styled.div`
@@ -165,18 +225,19 @@ export const Contacts = styled.div`
 `
 export const SettingsLink = styled.a`
   display: block;
-  width: 100px;
-  height: 100px;
+  width: 3.5em;
+  height: 3.5em;
   background-image: url("https://www.nicepng.com/png/full/10-107944_circle-icons-tools-tools-circle-icon-png.png");
   background-size: cover;
   background-position: center;
   border-radius: 50%;
+  margin-left: 3px;
 
 `
 export const Telegram = styled.a`
   display: block;
-  width: 100px;
-  height: 100px;
+  width: 3.5em;
+  height: 3.5em;
   background-image: url("https://media.wired.com/photos/600f12796a02aa6825bba609/125:94/w_2125,h_1598,c_limit/Science_telegram_1220060398.jpg");
   background-size: cover;
   background-position: center;
@@ -186,15 +247,15 @@ export const Telegram = styled.a`
 `
 export const Phone = styled('div')<{phoneNumber: string, phoneShow: boolean}>`
   background-image: url("https://www.pinclipart.com/picdir/big/540-5401844_blue-circle-phone-icon-clipart.png");
-  width: 100px;
-  height: 100px;
+  width: 3.5em;
+  height: 3.5em;
   background-size: cover;
   background-position: center;
   border-radius: 50%;
   margin-left: 1em;
+  margin-right: 2px;
   cursor: pointer;
-  
-  
+
   ${props => props.phoneShow && 
     `:after {
         content: "+7-(912) 388-35-38";
@@ -205,5 +266,7 @@ export const Phone = styled('div')<{phoneNumber: string, phoneShow: boolean}>`
         font-weight: bold;
         white-space: nowrap;
   }`}
-  
+
+
+
 `
