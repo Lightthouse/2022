@@ -5,4 +5,5 @@ export const EntityContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  
 `

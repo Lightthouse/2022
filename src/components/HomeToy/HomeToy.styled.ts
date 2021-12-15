@@ -18,12 +18,16 @@ export const Shroud = styled.div`
   &:hover {
     animation-duration: 0s;
   }
+
+  //@media(max-width: 1400px) {
+  //  width: 7em;
+  //}
 `
 
 export const House = styled.div`
   background-image: url("https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/918e7688-7d3a-406e-ab9c-50e96c54e802/responsive-icons-svg-opt.png");
-  width: 200px;
-  height: 200px;
+  width: 8em;
+  height: 8em;
   position: fixed;
   top: 10px;
   background-size: cover;
@@ -33,7 +37,24 @@ export const House = styled.div`
   cursor: pointer;
   
   border-radius: 50%;
+
+  @media(max-width: 1400px) {
+    width: 7em;
+    height: 7em;
+  }
+
+  @media(max-width: 1000px) {
+    width: 6em;
+    height: 6em;
+  }
   
-  
+  @media(max-width: 800px) {
+    width: 5em;
+    height: 5em;
+  }
+
+  @media(max-width: 600px) {
+    width: 4em;
+    height: 4em;
+  }
 `
-// media - 80px
