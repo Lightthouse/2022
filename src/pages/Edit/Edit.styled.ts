@@ -17,3 +17,15 @@ export const EditStyled = styled.div`
   
   //overflow: hidden;
 `
+
+export const Dump = styled.div`
+  width: 2em;
+  height: 2em;
+  background-color: dimgray;
+  position: absolute;
+  border-radius: 50%;
+  cursor: progress;
+  opacity: 0;
+  bottom: 0;
+  right: 0;
+`

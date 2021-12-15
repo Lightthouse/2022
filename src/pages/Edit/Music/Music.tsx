@@ -11,7 +11,7 @@ import {AddInput} from "components/AddInput/AddInput.styled";
 import {EntityContainer} from "components/EntityContainer/EntityContainer.styled";
 import {AddingContainer} from "components/AddingContainer/AddingContainer.styled";
 import {EntityName} from "components/EntityName/EntityName.styled";
-
+import {Hr} from "components/Hr/Hr.styled";
 
 export const Music = () => {
     const TYPE = "music";
@@ -57,10 +57,14 @@ export const Music = () => {
 
             {
                 music.map(m =>
-                    <EntityContainer key={m.id}>
-                        <EntityName><b>{m.author}</b> {m.name}</EntityName>
-                        <RemoveButton removeFunc={() => removeTrack(m.id)} editState={isEdit}/>
-                    </EntityContainer>
+                    <div key={m.id}>
+                        <EntityContainer>
+                            <EntityName><b>{m.author}</b> {m.name}</EntityName>
+                            <RemoveButton removeFunc={() => removeTrack(m.id)} editState={isEdit}/>
+                        </EntityContainer>
+                        <Hr/>
+                    </div>
+
                 )
             }
 

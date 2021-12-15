@@ -54,8 +54,17 @@ export const slice = createSlice({
     initialState: initState,
     reducers: {
 
+        set(state, action) {
+          state.person = action.payload.person
+          state.food = action.payload.food
+          state.music = action.payload.music
+          state.stuff = action.payload.stuff
+          state.note = action.payload.note
+        },
+
         add(state, action:Action) {
             state[action.payload.fillingType].push(action.payload.value)
+            localStorage.setItem('state', JSON.stringify(state));
         },
         // update(state, action) {
         //     state[action.payload.fillingType].push(action.payload.value)

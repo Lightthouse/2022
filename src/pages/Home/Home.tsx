@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {
     Contacts,
     HomeStyled,
@@ -19,10 +19,12 @@ import {useTimer} from "react-timer-hook";
 import {useAppSelector} from "hooks/useAppSelector";
 import Snowfall from 'react-snowfall'
 import {Hr} from "components/Hr/Hr.styled";
+import {useActions} from "../../hooks/useActions";
 
 export const Home: FC = () => {
     const { seconds, minutes, hours, days,} = useTimer({expiryTimestamp: newYearDate(), onExpire: () => console.log("expo")})
-
+    const {set} = useActions()
+    const [loaded, setLoaded] = useState(false)
     const [phoneShow, setPhoneShow] = useState(false)
 
     const twoDigits = (num: number) => {
@@ -31,6 +33,14 @@ export const Home: FC = () => {
     }
 
     const personList = useAppSelector(state => state.filling.person)
+
+    useEffect(() => {
+        let storageData = localStorage.getItem("state")
+        if(storageData) {
+            set(JSON.parse(storageData))
+            setLoaded(true)
+        }
+    }, [loaded])
 
     return (
         <HomeStyled>
@@ -54,23 +64,6 @@ export const Home: FC = () => {
                     )
                 }
 
-                {
-                    personList.map(p =>
-                        <Person key={p.id + 1}>
-                            <PersonPhoto src={p.photo} alt={p.name}/>
-                            <PersonName>{p.name}</PersonName>
-                        </Person>
-                    )
-                }
-
-                {
-                    personList.map(p =>
-                        <Person key={p.id + 2}>
-                            <PersonPhoto src={p.photo} alt={p.name}/>
-                            <PersonName>{p.name}</PersonName>
-                        </Person>
-                    )
-                }
             </PersonContainer>
 
             <Timer>До нового года: {twoDigits(days)}д. {twoDigits(hours)}ч. {twoDigits(minutes)}м. {twoDigits(seconds)}с.</Timer>

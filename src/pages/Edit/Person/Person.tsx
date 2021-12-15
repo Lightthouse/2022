@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {SyntheticEvent, useState} from 'react';
 import {useAppSelector} from "hooks/useAppSelector";
 import {Title} from "components/Title/Title";
 import {EditBlock} from "components/EditBlock/EditBlock";
@@ -7,11 +7,9 @@ import {AddInput} from "components/AddInput/AddInput.styled";
 import {AddingContainer} from "components/AddingContainer/AddingContainer.styled";
 import {AddButton} from "components/AddButton/AddButton";
 import {RemoveButton} from "components/RemoveButton/RemoveButton";
-import {PersonInfo, PersonList, PersonName, Photo, Tmp} from "./Person.styled";
+import {PersonInfo, PersonList, PersonName, Photo} from "./Person.styled";
 import {useActions} from "hooks/useActions";
 import {nanoid} from "@reduxjs/toolkit";
-
-
 
 export const Person = () => {
     const TYPE = "person";
@@ -21,25 +19,37 @@ export const Person = () => {
 
     const [isEdit, setIsEdit] = useState(false)
     const [personName, setPersonName] = useState("")
+    const [photoEvent, setPhotoEvent] = useState<any>()
 
-    const personIsFilled = () => personName
+    const personIsFilled = () => personName && photoEvent
     const enterPerson = (key: string) => {
         if(key === 'Enter') {
             savePerson();
         }
     }
     const savePerson = () => {
+
         if(personIsFilled()) {
-            add({
-                fillingType: TYPE,
-                value: {
-                    id: nanoid(),
-                    name: personName,
-                    photo: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fsexhd.pics%2Fgallery%2Fallgirlmassage%2Fnatasha-starr%2Fdedicated-close-up-premium-version%2Fnatasha-starr-14.jpg&f=1&nofb=1"
-                }
-            })
+
+            let selectedFile = photoEvent?.target?.files[0];
+            let reader = new FileReader();
+
+            reader.onload = function(personPhoto) {
+                let rs = personPhoto?.target?.result
+                add({
+                    fillingType: TYPE,
+                    value: {
+                        id: nanoid(),
+                        name: personName,
+                        photo: rs
+                    }
+                })
+            };
+
+            reader.readAsDataURL(selectedFile);
 
             setPersonName("")
+            setPhotoEvent(null)
         }
     }
     const removePerson = (personId: string) => {
@@ -54,9 +64,8 @@ export const Person = () => {
         let selectedFile = e.target.files[0];
         let reader = new FileReader();
 
-        console.log("here")
         reader.onload = function(e) {
-            let rs = e?.target?.result ?? "hyi"
+            let rs = e?.target?.result
             add({
                 fillingType: TYPE,
                 value: {
@@ -90,7 +99,7 @@ export const Person = () => {
             </PersonList>
 
             <AddingContainer editMode={isEdit}>
-                <input type={"file"} onChange={(e) => saveFile(e)}/>
+                <input type={"file"} onChange={(e) => setPhotoEvent(e)}/>
                 <AddInput type="text" placeholder={"Имя"}
                           value={personName}
                           onKeyUp={(e) => enterPerson(e.key) }

@@ -132,7 +132,7 @@ export const PersonContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  overflow: hidden;
+
 `
 export const Person = styled.figure`
   display: flex;
@@ -179,10 +179,10 @@ export const Person = styled.figure`
     100% { transform: rotate(-10deg); }
   }
 
-  //@media(max-width: 500px) {
-  //  height: 9em;
-  //  width: 7em;
-  //}
+  @media(max-width: 500px) {
+    height: 8em;
+    width: 7em;
+  }
 `
 export const PersonPhoto = styled.img`
   border: 5px solid #f8f8f8;
