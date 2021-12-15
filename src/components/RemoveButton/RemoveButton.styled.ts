@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-export const RemoveButton = styled('button')<{editMode: boolean}>`
+export const RemoveButtonStyled = styled('button')<{editMode: boolean}>`
   visibility: ${(props => props.editMode ? `visible` : `hidden`)};
   height: 1em;
   width: 1em;

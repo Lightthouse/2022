@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const EditContainerStyled = styled.div`
+export const EditBlock = styled.div`
   background-color: chocolate;
   padding: 1em;
   border-radius: 5%;

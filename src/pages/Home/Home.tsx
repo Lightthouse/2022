@@ -1,39 +1,68 @@
-import React, {FC, useEffect, useState} from 'react';
-import table from "assets/table.jpeg"
-import stephan from "assets/stephan.jpg"
-import {HomeStyled, Person, PersonContainer, PersonName, PersonPhoto} from "./Home.styled";
-import {newYearDate, CONTACT_PHONE, CONTACT_TELEGRAM, ADDRESS} from "utils/utils";
+import React, {FC, useState} from 'react';
+import {
+    Contacts,
+    HomeStyled,
+    Person,
+    PersonContainer,
+    PersonName,
+    PersonPhoto,
+    Phone,
+    Telegram,
+    Hat,
+    Timer,
+    Title,
+    PartyInfo,
+    SettingsLink,
+} from "./Home.styled";
+import {newYearDate, CONTACT_PHONE, CONTACT_TELEGRAM, ADDRESS, MEETING_TIME} from "utils/utils";
 import {useTimer} from "react-timer-hook";
-import {useAppSelector} from "../../hooks/useAppSelector";
+import {useAppSelector} from "hooks/useAppSelector";
+import Snowfall from 'react-snowfall'
+import {Hr} from "components/Hr/Hr.styled";
 
 export const Home: FC = () => {
     const { seconds, minutes, hours, days,} = useTimer({expiryTimestamp: newYearDate(), onExpire: () => console.log("expo")})
+
+    const [phoneShow, setPhoneShow] = useState(false)
+
+    const twoDigits = (num: number) => {
+        const stringNum = String(num);
+        return (stringNum.length > 1) ? stringNum : "0" + stringNum;
+    }
 
     const personList = useAppSelector(state => state.filling.person)
 
     return (
         <HomeStyled>
-            <h1>Встречаем новый год!</h1>
-            <div>Адрес: {ADDRESS}</div>
+            <Title>Встречаем новый год!</Title>
 
-            <div>До нового года: {days}д. {hours}ч. {minutes}м. {seconds}с.</div>
+            <PartyInfo>
+                <div>Адрес: {ADDRESS}</div>
+                <Hr/>
+                <div>Время: {MEETING_TIME}</div>
+            </PartyInfo>
+
+            <Snowfall/>
 
             <PersonContainer>
                 {
                     personList.map(p =>
-                        <Person>
+                        <Person key={p.id}>
                             <PersonPhoto src={p.photo} alt={p.name}/>
                             <PersonName>{p.name}</PersonName>
                         </Person>
+
                     )
                 }
             </PersonContainer>
 
+            <Timer>До нового года: {twoDigits(days)}д. {twoDigits(hours)}ч. {twoDigits(minutes)}м. {twoDigits(seconds)}с.</Timer>
 
-            <div>
-                <span>Телефон для связи: {CONTACT_PHONE}</span>
-                <span>Канал телеграмм: {CONTACT_TELEGRAM}</span>
-            </div>
+            <Contacts>
+                <SettingsLink href={"/edit"}/>
+                <Telegram href={CONTACT_TELEGRAM}/>
+                <Phone onClick={() => setPhoneShow((prev) => !prev)} phoneShow={phoneShow} phoneNumber={CONTACT_PHONE}/>
+            </Contacts>
         </HomeStyled>
     );
 };

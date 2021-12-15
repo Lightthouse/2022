@@ -1,16 +1,20 @@
 import React, {useState} from 'react';
 import {useAppSelector} from "hooks/useAppSelector";
-import {MusicStyled, TrackAdding, TrackInput, MusicTitle, TrackContainer, Track} from "./Music.styled";
 import {Title} from "components/Title/Title";
 import {EditButton} from "components/EditButton/EditButton";
 import {useActions} from "hooks/useActions";
 import {nanoid} from "@reduxjs/toolkit";
+import {RemoveButton} from "components/RemoveButton/RemoveButton";
+import {EditBlock} from "components/EditBlock/EditBlock";
 import {AddButton} from "components/AddButton/AddButton";
-import {RemoveButton} from "components/RemoveButton/RemoveButton.styled";
-import {EditContainerStyled} from "components/EditContainer/EditContainer.styled";
+import {AddInput} from "components/AddInput/AddInput.styled";
+import {EntityContainer} from "components/EntityContainer/EntityContainer.styled";
+import {AddingContainer} from "components/AddingContainer/AddingContainer.styled";
+import {EntityName} from "components/EntityName/EntityName.styled";
 
 
 export const Music = () => {
+    const TYPE = "music";
 
     const music = useAppSelector(state => state.filling.music)
     const {add, remove} = useActions()
@@ -22,7 +26,7 @@ export const Music = () => {
     const trackIsFilled = () => track && author;
 
     const enterTrack = (key: string) => {
-        if(key === 'Enter' && trackIsFilled()) {
+        if(key === 'Enter') {
             saveTrack();
         }
     }
@@ -30,7 +34,7 @@ export const Music = () => {
     const saveTrack = () => {
         if(trackIsFilled()) {
             add({
-                fillingType: "music",
+                fillingType: TYPE,
                 value: {
                     id: nanoid(),
                     author: author,
@@ -43,38 +47,39 @@ export const Music = () => {
 
     }
     const removeTrack = (trackId: string) => {
-        remove({fillingType: "music", value: trackId})
+        remove({fillingType: TYPE, value: trackId})
     }
 
     return (
-        <EditContainerStyled>
+        <EditBlock>
+
             <Title>Музыка</Title>
 
             {
                 music.map(m =>
-                    <TrackContainer key={m.id}>
-                        <Track><b>{m.author}</b> {m.name}</Track>
-                        <RemoveButton onClick={() => removeTrack(m.id)} editMode={isEdit}>x</RemoveButton>
-                    </TrackContainer>
+                    <EntityContainer key={m.id}>
+                        <EntityName><b>{m.author}</b> {m.name}</EntityName>
+                        <RemoveButton removeFunc={() => removeTrack(m.id)} editState={isEdit}/>
+                    </EntityContainer>
                 )
             }
 
-            <TrackAdding editMode={isEdit}>
-                <TrackInput type="text"
+            <AddingContainer editMode={isEdit}>
+                <AddInput type="text"
                             placeholder="Автор..."
                             value={author}
                             onKeyUp={(e) => enterTrack(e.key) }
                             onChange={(e) => setAuthor(e.target.value)}/>
-                <TrackInput type="text"
+                <AddInput type="text"
                             placeholder="Трек..."
                             value={track}
                             onKeyUp={(e) => enterTrack(e.key) }
                             onChange={(e) => setTrack(e.target.value)}/>
-                <AddButton onClick={() => saveTrack()}>+</AddButton>
-            </TrackAdding>
+                <AddButton saveFunc={saveTrack}/>
+            </AddingContainer>
 
-            <EditButton editState={isEdit} editStateFunc={setIsEdit} />
-        </EditContainerStyled>
+            <EditButton editStateFunc={() => setIsEdit(!isEdit)} />
+        </EditBlock>
     );
 };
 

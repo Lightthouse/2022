@@ -1,16 +1,10 @@
-import React, {FC} from 'react';
 import {EditButtonStyled} from "./EditButton.styled";
 
 
-type tmp = (state: boolean) => any
-export const EditButton = ({editState, editStateFunc}: {editState: boolean, editStateFunc: tmp}) => {
-
-    const toggleEdit = () => {
-        editStateFunc(!editState)
-    }
+export const EditButton = ({editStateFunc}: any) => {
 
     return (
-        <EditButtonStyled onClick={() => toggleEdit()}>
+        <EditButtonStyled onClick={editStateFunc}>
             Изменить
         </EditButtonStyled>
     );

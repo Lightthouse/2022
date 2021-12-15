@@ -23,29 +23,20 @@ interface StuffObj extends CommonObj{
     count: number
 }
 
-type mscf = {name: "music"} & MusicObj
+interface NoteObj extends CommonObj{
+}
+
 
 interface StateI {
     person: PersonObj[]
     food: FoodObj[]
     music: MusicObj[]
     stuff: StuffObj[]
+    note: NoteObj[]
 }
 
-type PersAdd = {payload: {
-        fillingType: "person",
-        value: PersonObj
-    }}
 
-
-type MusAdd = {payload: {
-        fillingType: "music",
-        value: MusicObj
-    }}
-
-type tmp = PersAdd | MusAdd
-
-type fillingEntities = "person" | "music" | "stuff" | "food"
+type fillingEntities = "person" | "music" | "stuff" | "food" | "note"
 
 type Action = {payload: {fillingType: fillingEntities, value: any }}
 
@@ -54,6 +45,7 @@ const initState: StateI = {
     food: [{id: "1", name: "Мандарины", volume: "2кг"}, {id: "2", name: "Шампанское", volume: "0.7л", count: 3}],
     music: [{id: "1", name: "Let It Snow!", author: "Frank Sinatra"}, {id: "2", name: "Blue Christmas", author: "Elvis Presley"}],
     stuff: [{id: "1", name: "Стулья", count: 2}, {id: "2", name: "Петарды", count: 5}],
+    note: [{id: "1", name: "Не сломать телевизор"}]
 
 }
 
@@ -68,6 +60,7 @@ export const slice = createSlice({
         // update(state, action) {
         //     state[action.payload.fillingType].push(action.payload.value)
         // },
+
         remove(state: { [key: string]: any[] }, action: Action) {
             state[action.payload.fillingType] = state[action.payload.fillingType].filter(i => i.id !== action.payload.value)
         },

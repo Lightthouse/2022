@@ -1,12 +1,12 @@
 import React from 'react';
-import {HomeToyStyled, House} from "./HomeToy.styled";
+import {House, Shroud} from "./HomeToy.styled";
 
 
 export const HomeToy = () => {
     return (
-        <HomeToyStyled>
-            <House/>
-        </HomeToyStyled>
+            <House>
+                <a href={"./"}><Shroud/></a>
+            </House>
     );
 };
 
